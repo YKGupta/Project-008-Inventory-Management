@@ -26,7 +26,7 @@ const validate = (req, res, next) => {
             error
         });
     }
-
+    
     next();
 };
 

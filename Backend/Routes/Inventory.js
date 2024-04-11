@@ -17,7 +17,8 @@ router.post('/add', authenticate, [ ...validators ], async (req, res) => {
     if(!errors.isEmpty())
     {
         return res.status(400).json({
-            message: "Invalid inputs"
+            message: "Invalid inputs",
+            success: false
         });
     }
 
@@ -30,7 +31,8 @@ router.post('/add', authenticate, [ ...validators ], async (req, res) => {
         if(oldItem)
         {
             return res.status(400).json({
-                message: "Item already exists"
+                message: "Item already exists",
+                success: false
             });
         }
 
@@ -44,14 +46,16 @@ router.post('/add', authenticate, [ ...validators ], async (req, res) => {
 
         res.status(200).json({
             message: "Item created successfully!",
-            item
+            item,
+            success: true
         });
     } 
     catch(error)
     {
         res.status(500).json({
             message: "Internal Server Error",
-            error
+            error,
+            success: false
         });
     }
 
@@ -68,14 +72,16 @@ router.get('/getall', authenticate, async (req, res) => {
 
         res.status(200).json({
             message: "Item created successfully!",
-            items
+            items,
+            success: true
         });
     } 
     catch(error)
     {
         res.status(500).json({
             message: "Internal Server Error",
-            error
+            error,
+            success: false
         });
     }
 
@@ -94,14 +100,16 @@ router.put('/update/:id', authenticate, [ ...validators ], async (req, res) => {
         if(!item)
         {
             return res.status(400).json({
-                message: "Item not found"
+                message: "Item not found",
+                success: false
             });
         }
 
         if(item.user.toString() !== req.id)
         {
             return res.status(401).json({
-                message: "Unauthorised"
+                message: "Unauthorised",
+                success: false
             });
         }
 
@@ -113,14 +121,16 @@ router.put('/update/:id', authenticate, [ ...validators ], async (req, res) => {
 
         res.status(200).json({
             message: "Item updated successfully!",
-            updatedItem
+            updatedItem,
+            success: true
         });
     } 
     catch(error)
     {
         res.status(500).json({
             message: "Internal Server Error",
-            error
+            error,
+            success: false
         });
     }
 
@@ -138,14 +148,16 @@ router.delete('/delete/:id', authenticate, async (req, res) => {
         if(!item)
         {
             return res.status(400).json({
-                message: "Item not found"
+                message: "Item not found",
+                success: false
             });
         }
 
         if(item.user.toString() !== req.id)
         {
             return res.status(401).json({
-                message: "Unauthorised"
+                message: "Unauthorised",
+                success: false
             });
         }
 
@@ -153,14 +165,16 @@ router.delete('/delete/:id', authenticate, async (req, res) => {
 
         res.status(200).json({
             message: "Item deleted successfully!",
-            deletedItem
+            deletedItem,
+            success: true
         });
     } 
     catch(error)
     {
         res.status(500).json({
             message: "Internal Server Error",
-            error
+            error,
+            success: false
         });
     }
 
