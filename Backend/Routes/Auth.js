@@ -22,7 +22,8 @@ router.post('/adduser', [...validators], async (req, res) => {
     {
         return res.status(400).json({
             message: "Errors found in user details",
-            errors: errors.array()
+            errors: errors.array(),
+            success: false
         });
     }
 
@@ -34,7 +35,8 @@ router.post('/adduser', [...validators], async (req, res) => {
         if(oldUser)
         {
             return res.status(400).json({
-                message: "Invalid Credentials"
+                message: "Invalid Credentials",
+                success: false
             });
         }
 
@@ -53,14 +55,16 @@ router.post('/adduser', [...validators], async (req, res) => {
     
         res.status(200).json({
             message: "User created successfully",
-            token
+            token,
+            success: true
         });
     }
     catch(error)
     {
         res.status(500).json({
             messaage: "Internal server error",
-            error
+            error,
+            success: false
         });
     }
 
@@ -75,7 +79,8 @@ router.post('/login', [ validators[1], validators[2] ], async (req, res) => {
     {
         return res.status(400).json({
             message: "Errors found in user details",
-            errors: errors.array()
+            errors: errors.array(),
+            success: false
         });
     }
 
@@ -88,7 +93,8 @@ router.post('/login', [ validators[1], validators[2] ], async (req, res) => {
         if(!user)
         {
             return res.status(400).json({
-                message: "Invalid Credentials"
+                message: "Invalid Credentials",
+                success: false
             });
         }
         
@@ -97,7 +103,8 @@ router.post('/login', [ validators[1], validators[2] ], async (req, res) => {
         if(!isCorrectPassword)
         {
             return res.status(400).json({
-                message: "Invalid Credentials"
+                message: "Invalid Credentials",
+                success: false
             });
         }
 
@@ -109,14 +116,16 @@ router.post('/login', [ validators[1], validators[2] ], async (req, res) => {
     
         res.status(200).json({
             message: "Logged in successfully",
-            token
+            token,
+            success: true
         });
     }
     catch(error)
     {
         res.status(500).json({
             messaage: "Internal server error",
-            error
+            error,
+            success: false
         });
     }
 

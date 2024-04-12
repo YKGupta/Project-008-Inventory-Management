@@ -3,6 +3,7 @@ import ItemsContext from '../Context/ItemsContext'
 import Item from './Item';
 import AddItem from './AddItem';
 import UpdateItem from './UpdateItem';
+import { useNavigate } from 'react-router-dom';
 
 const Items = () => {
 
@@ -10,6 +11,7 @@ const Items = () => {
     const [ updatedItem, setUpdatedItem ] = useState({ _id: "", name: "", qty: "" });
     const { updateItem } = useContext(ItemsContext);
     const closeRef = useRef(null);
+    const navigate = useNavigate();
 
     const setUpdateModal = (itemToBeUpdated) => {
         setUpdatedItem(itemToBeUpdated);
@@ -21,6 +23,12 @@ const Items = () => {
     }
 
     useEffect(() => {
+        if(!localStorage.getItem('token'))
+        {
+            navigate('/login');
+            return;
+        }
+
         getAllItems();
         // eslint-disable-next-line
     }, [])

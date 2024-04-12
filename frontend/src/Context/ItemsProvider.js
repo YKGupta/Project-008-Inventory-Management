@@ -14,7 +14,7 @@ const ItemsProvider = (props) => {
 			const response = await fetch(`${host}/api/inventory/getall`, {
 				method: "GET",
 				headers: {
-					"Auth-Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MGM1YWE0NGIxOWU1N2VmMjQ5NjFlMSIsImlhdCI6MTcxMjE2NjgxNX0.RtfTWzN4b1GsL2XYumRP6w_JMei4e052EU7ugGxsdMM"
+					"Auth-Token": localStorage.getItem('token')
 				}
 			});
 	
@@ -42,7 +42,7 @@ const ItemsProvider = (props) => {
 				method: "POST",
 				headers: {
 					"Content-Type":"application/json",
-					"Auth-Token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MGM1YWE0NGIxOWU1N2VmMjQ5NjFlMSIsImlhdCI6MTcxMjE2NjgxNX0.RtfTWzN4b1GsL2XYumRP6w_JMei4e052EU7ugGxsdMM"
+					"Auth-Token":localStorage.getItem('token')
 				},
 				body: JSON.stringify({
 					name, qty
@@ -78,7 +78,7 @@ const ItemsProvider = (props) => {
 			const response = await fetch(`${host}/api/inventory/delete/${_id}`, {
 				method: "DELETE",
 				headers: {
-					"Auth-Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MGM1YWE0NGIxOWU1N2VmMjQ5NjFlMSIsImlhdCI6MTcxMjE2NjgxNX0.RtfTWzN4b1GsL2XYumRP6w_JMei4e052EU7ugGxsdMM"
+					"Auth-Token": localStorage.getItem('token')
 				}
 			});
 
@@ -112,7 +112,7 @@ const ItemsProvider = (props) => {
 				method: "PUT",
 				headers: {
 					"Content-Type":"application/json",
-					"Auth-Token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MGM1YWE0NGIxOWU1N2VmMjQ5NjFlMSIsImlhdCI6MTcxMjE2NjgxNX0.RtfTWzN4b1GsL2XYumRP6w_JMei4e052EU7ugGxsdMM"
+					"Auth-Token":localStorage.getItem('token')
 				},
 				body: JSON.stringify({
 					name, qty
