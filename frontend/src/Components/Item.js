@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import ItemsContext from '../Context/ItemsContext';
+import './Item.css';
 
 const Item = ({ item, setUpdateModal }) => {
 

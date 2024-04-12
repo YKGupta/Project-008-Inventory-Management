@@ -28,7 +28,7 @@ router.post('/add', authenticate, [ ...validators ], async (req, res) => {
 
         // Check if item already exists
         const oldItem = await Item.findOne({ name });
-        if(oldItem)
+        if(oldItem && oldItem.user.toString() === req.id)
         {
             return res.status(400).json({
                 message: "Item already exists",

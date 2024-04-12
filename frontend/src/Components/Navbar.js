@@ -1,4 +1,5 @@
 import React from 'react';
+import './Navbar.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
@@ -12,28 +13,28 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
-                <Link className="navbar-brand hindi" to="/">रवि ट्रेडर्स</Link>
+                <Link className="hindi link" to="/">रवि ट्रेडर्स</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className={`nav-link ${location === '/' ? 'active' : ''}`} aria-current="page" to="/">Home</Link>
+                            <Link className={`link ${location.pathname === '/' ? 'highlight' : ''}`} aria-current="page" to="/">Home</Link>
                         </li>
                     </ul>
                 </div>
                 {
                     !localStorage.getItem('token') ? 
                     <div className='d-flex'>
-                        <Link className='btn btn-primary mx-2' role='button' to="/login">Login</Link>
-                        <Link className='btn btn-primary mx-2' role='button' to="/signup">Sign Up</Link>
+                        <Link className="button mx-2" to="/login">Login</Link>
+                        <Link className="button mx-2" to="/signup">Sign Up</Link>
                     </div>
                     :
                     <div className='d-flex'>
-                        <button className='btn btn-danger mx-2' onClick={ handleLogout }>Logout</button>
+                        <button className="button mx-2" onClick={ handleLogout }>Logout</button>
                     </div>
                 }
             </div>

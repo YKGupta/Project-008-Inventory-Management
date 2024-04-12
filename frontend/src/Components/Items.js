@@ -4,6 +4,7 @@ import Item from './Item';
 import AddItem from './AddItem';
 import UpdateItem from './UpdateItem';
 import { useNavigate } from 'react-router-dom';
+import './Items.css';
 
 const Items = () => {
 
@@ -41,7 +42,7 @@ const Items = () => {
                 {items.map((item) => <Item item={item} key={item._id} setUpdateModal={ setUpdateModal } />)}
             </div>
             <div className="container my-5">
-                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">Add Item</button>
+                <button type="button" className="itemsBtn" data-bs-toggle="modal" data-bs-target="#addItemModal">Add Item</button>
             </div>
         </>
     )

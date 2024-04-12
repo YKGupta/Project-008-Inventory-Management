@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import './Signup.css';
 
 const Signup = () => {
 
@@ -42,23 +43,17 @@ const Signup = () => {
     };
 
     return (
-        <div className='container my-3'>
+        <div className='signupContainer blur my-3 background'>
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Name</label>
-                    <input type="name" className="form-control" id="name" name='name' onChange={onChange} required />
+                <h2 className='text-center'>Sign Up</h2>
+                <div>
+                    <input type="text" id="name" name='name' onChange={onChange} required placeholder='Name' />
+                    <input type="email" id="email" name='email' onChange={onChange} required placeholder='Email' />
+                    <input type="password" id="password" name='password' onChange={onChange} autoComplete='on' required placeholder='Password' minLength={8} />
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email address</label>
-                    <input type="email" className="form-control" id="email" aria-describedby="emailHelp" name='email' onChange={onChange} required />
-                    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-control" id="password" name='password' onChange={onChange} autoComplete='on' required minLength={8} />
-                </div>
-                <button type="submit" className="btn btn-primary">Sign Up</button>
+                <button type="submit" disabled={ credentials.name.trim() === "" || credentials.email.trim() === "" || credentials.password.trim() === "" }>Sign Up</button>
             </form>
+            <Link to="/login">Already have an account? Login</Link>
         </div>
     )
 }

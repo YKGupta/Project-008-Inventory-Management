@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './Login.css';
 
 const Login = () => {
 
@@ -45,18 +46,16 @@ const Login = () => {
     };
 
     return (
-        <div className='container my-3'>
+        <div className='loginContainer blur my-3 background'>
             <form onSubmit={ handleSubmit }>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email address</label>
-                    <input type="email" className="form-control" id="email" aria-describedby="emailHelp" name='email' onChange={onChange} required />
+                <h2 className='text-center'>Login</h2>
+                <div>
+                    <input type="email" id="email" name='email' onChange={onChange} required placeholder='Email' />
+                    <input type="password" id="password" name='password' onChange={onChange} autoComplete='on' required placeholder='Password' />
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-control" id="password" name='password' onChange={onChange} autoComplete='on' required />
-                </div>
-                <button type="submit" className="btn btn-primary">Login</button>
+                <button disabled={ credentials.email.trim() === "" || credentials.password.trim() === "" } type="submit">Login</button>
             </form>
+            <Link to="/signup">I don't have an account. Register?</Link>
         </div>
     )
 }
