@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ItemsContext from "./ItemsContext";
+import AlertContext from "./AlertContext";
 
 const ItemsProvider = (props) => {
 
 	const [items, setItems] = useState([]);
+	const { alertSetter } = useContext(AlertContext);
 
 	const host = "http://localhost:5000";
 
@@ -25,12 +27,12 @@ const ItemsProvider = (props) => {
 			}
 			else
 			{
-				alert(json.message);
+				alertSetter({ message: json.message, type: "danger"});
 			}
 		}
 		catch(error)
 		{
-			alert(error);
+			alertSetter({ message: error, type: "danger"});
 		}
 	}
 
@@ -54,19 +56,19 @@ const ItemsProvider = (props) => {
 			if(json.success)
 			{
 				// Update frontend
-				alert(json.message);
+				alertSetter({ message: json.message, type: "warning"});
 				const newItems = items.concat(json.item);
 				setItems(newItems);
 			}
 			else
 			{
-				alert(json.message);
+				alertSetter({ message: json.message, type: "danger"});
 			}
 
 		}
 		catch(error)
 		{
-			alert(error);
+			alertSetter({ message: error, type: "danger"});
 		}
 
 	};
@@ -87,19 +89,19 @@ const ItemsProvider = (props) => {
 			if(json.success)
 			{
 				// Update frontend
-				alert(json.message);
+				alertSetter({ message: json.message, type: "warning"});
 				const newItems = items.filter((x) => x._id !== _id);
 				setItems(newItems);
 			}
 			else
 			{
-				alert(json.message);
+				alertSetter({ message: json.message, type: "danger"});
 			}
 
 		}
 		catch(error)
 		{
-			alert(error);
+			alertSetter({ message: error, type: "danger"});
 		}
 
 	}
@@ -124,7 +126,7 @@ const ItemsProvider = (props) => {
 			if(json.success)
 			{
 				// Update frontend
-				alert(json.message);
+				alertSetter({ message: json.message, type: "warning"});
 				
 				const newItems = JSON.parse(JSON.stringify(items));
 				for(let i = 0; i < newItems.length; i++)
@@ -141,13 +143,13 @@ const ItemsProvider = (props) => {
 			}
 			else
 			{
-				alert(json.message);
+				alertSetter({ message: json.message, type: "danger"});
 			}
 
 		}
 		catch(error)
 		{
-			alert(error);
+			alertSetter({ message: error, type: "danger"});
 		}
 
 	}

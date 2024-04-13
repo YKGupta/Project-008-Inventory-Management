@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import './Signup.css';
+import AlertContext from '../Context/AlertContext';
 
 const Signup = () => {
 
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "" });
     const navigate = useNavigate();
+    const { alertSetter } = useContext(AlertContext);
 
 	const host = "http://localhost:5000";
 
@@ -25,16 +27,16 @@ const Signup = () => {
             const json = await response.json();
 
             if (json.success) {
-                alert(json.message);
+                alertSetter({ message: json.message, type: "warning"});
                 localStorage.setItem('token', json.token);
                 navigate('/');
             }
             else {
-                alert(json.message);
+                alertSetter({ message: json.message, type: "danger"});
             }
         }
         catch (error) {
-            alert(error);
+            alertSetter({ message: error, type: "danger"});
         }
     };
 
