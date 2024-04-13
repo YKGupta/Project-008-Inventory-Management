@@ -5,11 +5,12 @@ import AddItem from './AddItem';
 import UpdateItem from './UpdateItem';
 import { useNavigate } from 'react-router-dom';
 import './Items.css';
+import DashboardInfo from './DashboardInfo';
 
 const Items = () => {
 
     const { items, getAllItems } = useContext(ItemsContext);
-    const [ updatedItem, setUpdatedItem ] = useState({ _id: "", name: "", qty: "" });
+    const [updatedItem, setUpdatedItem] = useState({ _id: "", name: "", qty: "" });
     const { updateItem } = useContext(ItemsContext);
     const closeRef = useRef(null);
     const navigate = useNavigate();
@@ -24,8 +25,7 @@ const Items = () => {
     }
 
     useEffect(() => {
-        if(!localStorage.getItem('token'))
-        {
+        if (!localStorage.getItem('token')) {
             navigate('/login');
             return;
         }
@@ -36,10 +36,12 @@ const Items = () => {
 
     return (
         <>
+            <DashboardInfo />
             <AddItem />
             <UpdateItem closeRef={closeRef} update={update} updatedItem={updatedItem} setUpdatedItem={setUpdatedItem} />
+            <h2>Items</h2>
             <div className='row'>
-                {items.map((item) => <Item item={item} key={item._id} setUpdateModal={ setUpdateModal } />)}
+                {items.map((item) => <Item item={item} key={item._id} setUpdateModal={setUpdateModal} />)}
             </div>
             <div className="container my-5">
                 <button type="button" className="itemsBtn" data-bs-toggle="modal" data-bs-target="#addItemModal">Add Item</button>
