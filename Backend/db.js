@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const uri = "mongodb://localhost:27017/RaviTraders";
+const uri = "mongodb+srv://ykgupta2411:NkJwmIPPS3uU4qtN@database.8mncj2h.mongodb.net/";
 
 const connectToDatabase = () => {
     mongoose.connect(uri).then(() => {
