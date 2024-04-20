@@ -24,7 +24,7 @@ router.post('/add', authenticate, [ ...validators ], async (req, res) => {
 
     try
     {
-        const { name, qty } = req.body;
+        const { name, qty, category } = req.body;
 
         // Check if item already exists
         const oldItem = await Item.findOne({ name });
@@ -39,6 +39,7 @@ router.post('/add', authenticate, [ ...validators ], async (req, res) => {
         const item = new Item({
             name,
             qty,
+            category,
             user: req.id
         });
 
@@ -94,7 +95,7 @@ router.put('/update/:id', authenticate, [ ...validators ], async (req, res) => {
 
     try
     {
-        const { name, qty } = req.body;
+        const { name, qty, category } = req.body;
         const item = await Item.findById(req.params.id);
 
         if(!item)
@@ -116,6 +117,7 @@ router.put('/update/:id', authenticate, [ ...validators ], async (req, res) => {
         const newItem = {};
         if(name) newItem.name = name;
         if(qty) newItem.qty = qty;
+        if(category) newItem.category = category;
 
         const updatedItem = await Item.findByIdAndUpdate(req.params.id, { $set: newItem }, { new: true });
 

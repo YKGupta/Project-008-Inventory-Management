@@ -24,12 +24,15 @@ const UpdateItem = ({ closeRef, update, updatedItem, setUpdatedItem }) => {
                                 <label htmlFor="qty" className="form-label">Quantity</label>
                                 <input type="number" className="form-control" id="qty" name="qty" onChange={onChange} value={updatedItem.qty} />
                             </div>
+                            <div className="mb-3">
+                                <label htmlFor="category" className="form-label">Category</label>
+                                <input type="text" className="form-control" id="category" name="category" onChange={onChange} value={updatedItem.category} />
+                            </div>
                         </form>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeRef}>Close</button>
-                        <button disabled={updatedItem.name.toString().trim() === "" || updatedItem.qty.toString().trim() ===
-                            ""} type="button" className="btn btn-primary" onClick={update}>Update</button>
+                        <button disabled={updatedItem.name.toString().trim() === "" || updatedItem.qty.toString().trim() === "" || updatedItem.category.toString().trim() === ""} type="button" className="btn btn-primary" onClick={update}>Update</button>
                     </div>
                 </div>
             </div>

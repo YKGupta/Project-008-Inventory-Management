@@ -13,7 +13,6 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Signing you up...', credentials);
         try 
         {
             const response = await fetch(`${host}/api/auth/adduser`, {

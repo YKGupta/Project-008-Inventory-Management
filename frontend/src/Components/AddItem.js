@@ -4,7 +4,7 @@ import ItemsContext from '../Context/ItemsContext';
 const AddItem = () => {
 
     const closeRef = useRef(null);
-    const [ item, setItem ] = useState({ name: "", qty: "" });
+    const [ item, setItem ] = useState({ name: "", qty: "", category: "" });
     const { addItem } = useContext(ItemsContext);
 
     const onChange = (e) => {
@@ -34,12 +34,16 @@ const AddItem = () => {
                                 <label htmlFor="qty" className="form-label">Quantity</label>
                                 <input type="number" className="form-control" id="qty" name="qty" onChange={ onChange } />
                             </div>
+                            <div className="mb-3">
+                                <label htmlFor="category" className="form-label">Category</label>
+                                <input type="text" className="form-control" id="category" name="category" onChange={ onChange } />
+                            </div>
                         </form>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeRef}>Close</button>
                         <button disabled={ item.name.trim() === "" || item.qty.trim() === 
-                    "" } type="button" className="btn btn-primary" onClick={ handleAddClick }>Add</button>
+                    "" || item.category.trim() === "" } type="button" className="btn btn-primary" onClick={ handleAddClick }>Add</button>
                     </div>
                 </div>
             </div>

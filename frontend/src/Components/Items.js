@@ -40,9 +40,15 @@ const Items = () => {
             <AddItem />
             <UpdateItem closeRef={closeRef} update={update} updatedItem={updatedItem} setUpdatedItem={setUpdatedItem} />
             <h2>Items</h2>
-            <div className='row'>
-                {items.map((item) => <Item item={item} key={item._id} setUpdateModal={setUpdateModal} />)}
-            </div>
+            {
+                items.length === 0 ? 
+                <button className="btn btn-warning mt-4" disabled>No items to display :(</button> :
+                <div className='row mt-4'>
+                    {
+                        items.map((item) => <Item item={item} key={item._id} setUpdateModal={setUpdateModal} />)
+                    }
+                </div>
+            }
             <div className="container my-5">
                 <button type="button" className="itemsBtn" data-bs-toggle="modal" data-bs-target="#addItemModal">Add Item</button>
             </div>

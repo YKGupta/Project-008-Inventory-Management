@@ -9,6 +9,10 @@ const itemSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    category: {
+        type: String,
+        default: "General"
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'

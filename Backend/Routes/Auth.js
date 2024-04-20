@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../Models/User');
 
-const SECRET_KEY = "shhhh....@#@shhh";
+const SECRET_KEY = process.env.SECRET_KEY;
 
 const validators = [ 
     body('name', "Name cannot be empty").isLength({ min: 1 }), 
