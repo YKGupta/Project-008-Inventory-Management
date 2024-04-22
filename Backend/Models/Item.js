@@ -13,9 +13,9 @@ const itemSchema = new mongoose.Schema({
         type: String,
         default: "General"
     },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+    imageURL: {
+        type: String,
+        default: "https://shorturl.at/ervxF"
     }
 });
 

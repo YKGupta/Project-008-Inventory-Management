@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
 const authenticate = require('../Middlewares/AuthenthicateUser');
+const checkAdmin = require('../Middlewares/AdminCheck');
 const Item = require('../Models/Item');
 
 const validators = [
@@ -11,7 +12,7 @@ const validators = [
 // Route 1 : Add new item using POST : /api/inventory/add
 // Required authentication
 
-router.post('/add', authenticate, [ ...validators ], async (req, res) => {
+router.post('/add', authenticate, checkAdmin, [ ...validators ], async (req, res) => {
 
     const errors = validationResult(req);
     if(!errors.isEmpty())
@@ -24,11 +25,11 @@ router.post('/add', authenticate, [ ...validators ], async (req, res) => {
 
     try
     {
-        const { name, qty, category } = req.body;
+        const { name, qty, category, imageURL } = req.body;
 
         // Check if item already exists
         const oldItem = await Item.findOne({ name });
-        if(oldItem && oldItem.user.toString() === req.id)
+        if(oldItem)
         {
             return res.status(400).json({
                 message: "Item already exists",
@@ -40,7 +41,7 @@ router.post('/add', authenticate, [ ...validators ], async (req, res) => {
             name,
             qty,
             category,
-            user: req.id
+            imageURL
         });
 
         await item.save();
@@ -69,7 +70,7 @@ router.get('/getall', authenticate, async (req, res) => {
 
     try
     {
-        const items = await Item.find({ user: req.id });
+        const items = await Item.find({});
 
         res.status(200).json({
             message: "Item created successfully!",
@@ -91,11 +92,11 @@ router.get('/getall', authenticate, async (req, res) => {
 // Route 3 : Update an item using PUT : /api/inventory/update
 // Required authentication
 
-router.put('/update/:id', authenticate, [ ...validators ], async (req, res) => {
+router.put('/update/:id', authenticate, checkAdmin, [ ...validators ], async (req, res) => {
 
     try
     {
-        const { name, qty, category } = req.body;
+        const { name, qty, category, imageURL } = req.body;
         const item = await Item.findById(req.params.id);
 
         if(!item)
@@ -106,18 +107,11 @@ router.put('/update/:id', authenticate, [ ...validators ], async (req, res) => {
             });
         }
 
-        if(item.user.toString() !== req.id)
-        {
-            return res.status(401).json({
-                message: "Unauthorised",
-                success: false
-            });
-        }
-
         const newItem = {};
         if(name) newItem.name = name;
         if(qty) newItem.qty = qty;
         if(category) newItem.category = category;
+        if(imageURL) newItem.imageURL = imageURL;
 
         const updatedItem = await Item.findByIdAndUpdate(req.params.id, { $set: newItem }, { new: true });
 
@@ -141,7 +135,7 @@ router.put('/update/:id', authenticate, [ ...validators ], async (req, res) => {
 // Route 4 : Delete an item using DELETE : /api/inventory/delete
 // Required authentication
 
-router.delete('/delete/:id', authenticate, async (req, res) => {
+router.delete('/delete/:id', authenticate, checkAdmin, async (req, res) => {
 
     try
     {
@@ -151,14 +145,6 @@ router.delete('/delete/:id', authenticate, async (req, res) => {
         {
             return res.status(400).json({
                 message: "Item not found",
-                success: false
-            });
-        }
-
-        if(item.user.toString() !== req.id)
-        {
-            return res.status(401).json({
-                message: "Unauthorised",
                 success: false
             });
         }

@@ -28,6 +28,7 @@ const Signup = () => {
             if (json.success) {
                 alertSetter({ message: json.message, type: "warning"});
                 localStorage.setItem('token', json.token);
+                localStorage.setItem('admin', 'false');
                 navigate('/');
             }
             else {

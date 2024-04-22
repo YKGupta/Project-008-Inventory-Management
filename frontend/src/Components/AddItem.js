@@ -4,7 +4,7 @@ import ItemsContext from '../Context/ItemsContext';
 const AddItem = () => {
 
     const closeRef = useRef(null);
-    const [ item, setItem ] = useState({ name: "", qty: "", category: "" });
+    const [ item, setItem ] = useState({ name: "", qty: "", category: "", imageURL: "" });
     const { addItem } = useContext(ItemsContext);
 
     const onChange = (e) => {
@@ -13,6 +13,9 @@ const AddItem = () => {
 
     const handleAddClick = () => {
         addItem(item);
+        const inputs = document.getElementsByTagName('input');
+        for(let i = 0; i < inputs.length; i++)
+            inputs[i].value = "";
         closeRef.current.click();
     };
 
@@ -38,12 +41,16 @@ const AddItem = () => {
                                 <label htmlFor="category" className="form-label">Category</label>
                                 <input type="text" className="form-control" id="category" name="category" onChange={ onChange } />
                             </div>
+                            <div className="mb-3">
+                                <label htmlFor="imageURL" className="form-label">Image URL</label>
+                                <input type="text" className="form-control" id="imageURL" name="imageURL" onChange={ onChange } />
+                            </div>
                         </form>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeRef}>Close</button>
                         <button disabled={ item.name.trim() === "" || item.qty.trim() === 
-                    "" || item.category.trim() === "" } type="button" className="btn btn-primary" onClick={ handleAddClick }>Add</button>
+                    "" || item.category.trim() === "" || item.imageURL.trim() === "" } type="button" className="btn btn-primary" onClick={ handleAddClick }>Add</button>
                     </div>
                 </div>
             </div>

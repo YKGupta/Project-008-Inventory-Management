@@ -28,6 +28,10 @@ const UpdateItem = ({ closeRef, update, updatedItem, setUpdatedItem }) => {
                                 <label htmlFor="category" className="form-label">Category</label>
                                 <input type="text" className="form-control" id="category" name="category" onChange={onChange} value={updatedItem.category} />
                             </div>
+                            <div className="mb-3">
+                                <label htmlFor="imageURL" className="form-label">Image URL</label>
+                                <input type="text" className="form-control" id="imageURL" name="imageURL" onChange={onChange} value={updatedItem.imageURL} />
+                            </div>
                         </form>
                     </div>
                     <div className="modal-footer">

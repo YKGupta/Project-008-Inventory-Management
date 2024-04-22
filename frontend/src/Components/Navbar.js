@@ -9,6 +9,7 @@ const Navbar = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('admin');
         navigate('/login');
     };
 
@@ -24,9 +25,9 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link className={`link ${location.pathname === '/' ? 'highlight' : ''}`} aria-current="page" to="/">Home</Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link className={`link ${location.pathname === '/x' ? 'highlight' : ''}`} aria-current="page" to="/">Coming Soon</Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
                 {

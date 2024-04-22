@@ -29,6 +29,7 @@ const Login = () => {
 			{
 				alertSetter({ message: json.message, type: "warning"});
                 localStorage.setItem('token', json.token);
+                localStorage.setItem('admin', json.isAdmin.toString());
                 navigate('/');
 			}
 			else

@@ -1,9 +1,8 @@
-.loginContainer h2{
+.loginContainer h2 {
 	color: #2D3436;
 }
 
 .loginContainer {
-	width: 30%;
 	margin: auto;
 	height: 80vh;
 	border: none;
@@ -19,7 +18,7 @@
 	backdrop-filter: blur(10px);
 }
 
-.loginContainer form{
+.loginContainer form {
 	width: 100%;
 	height: 100%;
 	padding: 20px;
@@ -39,16 +38,16 @@
 	transition: border-color 0.2s;
 }
 
-.loginContainer input[type="email"]{
+.loginContainer input[type="email"] {
 	margin-bottom: 50px;
 }
 
-.loginContainer input:focus{
+.loginContainer input:focus {
 	border-color: #FFCEA6;
 	background: transparent;
 }
 
-.loginContainer button{
+.loginContainer button {
 	width: 100%;
 	border: 0px;
 	border-radius: 7px;
@@ -58,13 +57,31 @@
 	transition: all 0.5s;
 }
 
-.loginContainer button:disabled{
+.loginContainer button:disabled {
 	background-color: #6c7274;
 	color: #fcd9be;
 }
 
-.loginContainer a{
+.loginContainer a {
 	margin: 10px 0px;
 	color: #2D3436;
 	text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) and (min-width: 0px) {
+	.loginContainer {
+		width: 90%;
+	}
+}
+
+@media only screen and (max-width: 1000px) and (min-width: 600px) {
+	.loginContainer {
+		width: 60%;
+	}
+}
+
+@media only screen and (min-width: 1000px) {
+	.loginContainer {
+		width: 30%;
+	}
 }

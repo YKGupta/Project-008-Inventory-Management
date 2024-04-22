@@ -3,7 +3,6 @@
 }
 
 .signupContainer {
-	width: 30vw;
 	margin: auto;
 	height: 80vh;
 	border: none;
@@ -64,4 +63,23 @@
 	margin: 10px 0px;
 	color: #2D3436;
 	text-decoration: none;
+}
+
+
+@media only screen and (max-width: 600px) and (min-width: 0px) {
+	.signupContainer {
+		width: 90%;
+	}
+}
+
+@media only screen and (max-width: 1000px) and (min-width: 600px) {
+	.signupContainer {
+		width: 60%;
+	}
+}
+
+@media only screen and (min-width: 1000px) {
+	.signupContainer {
+		width: 30%;
+	}
 }

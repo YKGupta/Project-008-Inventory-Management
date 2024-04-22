@@ -117,6 +117,7 @@ router.post('/login', [ validators[1], validators[2] ], async (req, res) => {
         res.status(200).json({
             message: "Logged in successfully",
             token,
+            isAdmin: user.admin,
             success: true
         });
     }

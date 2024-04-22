@@ -36,7 +36,7 @@ const ItemsProvider = (props) => {
 		}
 	}
 
-	const addItem = async ({ name, qty, category }) => {
+	const addItem = async ({ name, qty, category, imageURL }) => {
 
 		try
 		{
@@ -47,7 +47,7 @@ const ItemsProvider = (props) => {
 					"Auth-Token":localStorage.getItem('token')
 				},
 				body: JSON.stringify({
-					name, qty, category
+					name, qty, category, imageURL
 				})
 			});
 
@@ -106,7 +106,7 @@ const ItemsProvider = (props) => {
 
 	}
 
-	const updateItem = async ({ _id, name, qty, category }) => {
+	const updateItem = async ({ _id, name, qty, category, imageURL }) => {
 
 		try
 		{
@@ -117,7 +117,7 @@ const ItemsProvider = (props) => {
 					"Auth-Token":localStorage.getItem('token')
 				},
 				body: JSON.stringify({
-					name, qty, category
+					name, qty, category, imageURL
 				})
 			});
 
@@ -136,6 +136,7 @@ const ItemsProvider = (props) => {
 						newItems[i].name = name;
 						newItems[i].qty = qty;
 						newItems[i].category = category;
+						newItems[i].imageURL = imageURL;
 						break;
 					}
 				}
