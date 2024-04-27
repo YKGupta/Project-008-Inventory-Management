@@ -1,16 +1,20 @@
 import { useContext, useState } from "react";
 import ItemsContext from "./ItemsContext";
 import AlertContext from "./AlertContext";
+import ProgressContext from "./ProgressContext";
 
 const ItemsProvider = (props) => {
 
 	const [items, setItems] = useState([]);
 	const { alertSetter } = useContext(AlertContext);
+	const { setProgress } = useContext(ProgressContext);
 
 	const host = "http://localhost:5000";
 
 	const getAllItems = async () => {
 
+		setProgress(10);		
+		
 		try
 		{
 			const response = await fetch(`${host}/api/inventory/getall`, {
@@ -19,8 +23,13 @@ const ItemsProvider = (props) => {
 					"Auth-Token": localStorage.getItem('token')
 				}
 			});
-	
+
+			setProgress(50);
+			
 			const json = await response.json();
+			
+			setProgress(90);
+
 			if(json.success)
 			{
 				setItems(json.items);
@@ -34,9 +43,15 @@ const ItemsProvider = (props) => {
 		{
 			alertSetter({ message: error, type: "danger"});
 		}
+		finally
+		{
+			setProgress(100);		
+		}
 	}
 
 	const addItem = async ({ name, qty, category, imageURL }) => {
+
+		setProgress(10);
 
 		try
 		{
@@ -51,7 +66,11 @@ const ItemsProvider = (props) => {
 				})
 			});
 
+			setProgress(50);
+
 			const json = await response.json();
+
+			setProgress(90);
 
 			if(json.success)
 			{
@@ -70,10 +89,16 @@ const ItemsProvider = (props) => {
 		{
 			alertSetter({ message: error, type: "danger"});
 		}
+		finally
+		{
+			setProgress(100);		
+		}
 
 	};
 
 	const deleteItem = async ({ _id }) => {
+
+		setProgress(10);
 
 		try
 		{
@@ -84,8 +109,12 @@ const ItemsProvider = (props) => {
 				}
 			});
 
+			setProgress(50);
+			
 			const json = await response.json();
 
+			setProgress(90);
+			
 			if(json.success)
 			{
 				// Update frontend
@@ -103,10 +132,16 @@ const ItemsProvider = (props) => {
 		{
 			alertSetter({ message: error, type: "danger"});
 		}
+		finally
+		{
+			setProgress(100);		
+		}
 
 	}
 
 	const updateItem = async ({ _id, name, qty, category, imageURL }) => {
+
+		setProgress(10);
 
 		try
 		{
@@ -121,7 +156,11 @@ const ItemsProvider = (props) => {
 				})
 			});
 
+			setProgress(50);
+			
 			const json = await response.json();
+			
+			setProgress(90);
 
 			if(json.success)
 			{
@@ -152,6 +191,10 @@ const ItemsProvider = (props) => {
 		catch(error)
 		{
 			alertSetter({ message: error, type: "danger"});
+		}
+		finally
+		{
+			setProgress(100);		
 		}
 
 	}

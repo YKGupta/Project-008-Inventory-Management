@@ -2,17 +2,20 @@ import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import './Signup.css';
 import AlertContext from '../Context/AlertContext';
+import ProgressContext from '../Context/ProgressContext';
 
 const Signup = () => {
 
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "" });
     const navigate = useNavigate();
     const { alertSetter } = useContext(AlertContext);
+    const { setProgress } = useContext(ProgressContext);
 
 	const host = "http://localhost:5000";
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setProgress(30);
         try 
         {
             const response = await fetch(`${host}/api/auth/adduser`, {
@@ -23,7 +26,11 @@ const Signup = () => {
                 body: JSON.stringify(credentials)
             });
 
+            setProgress(50);
+
             const json = await response.json();
+
+            setProgress(90);
 
             if (json.success) {
                 alertSetter({ message: json.message, type: "warning"});
@@ -37,6 +44,10 @@ const Signup = () => {
         }
         catch (error) {
             alertSetter({ message: error, type: "danger"});
+        }
+        finally
+        {
+            setProgress(100);
         }
     };
 
@@ -53,7 +64,7 @@ const Signup = () => {
                     <input type="email" id="email" name='email' onChange={onChange} required placeholder='Email' />
                     <input type="password" id="password" name='password' onChange={onChange} autoComplete='on' required placeholder='Password' minLength={8} />
                 </div>
-                <button type="submit" disabled={ credentials.name.trim() === "" || credentials.email.trim() === "" || credentials.password.trim() === "" }>Sign Up</button>
+                <button type="submit" disabled={ credentials.name.trim() === "" || credentials.email.trim() === "" || credentials.password.length < 8 }>Sign Up</button>
             </form>
             <Link to="/login">Already have an account? Login</Link>
         </div>

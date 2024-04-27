@@ -2,17 +2,20 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 import AlertContext from '../Context/AlertContext';
+import ProgressContext from '../Context/ProgressContext';
 
 const Login = () => {
 
     const [credentials, setCredentials] = useState({ email: "", password: "" });
     const navigate = useNavigate();
     const { alertSetter } = useContext(AlertContext);
+    const { setProgress } = useContext(ProgressContext);
 
 	const host = "http://localhost:5000";
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setProgress(30);
         try
 		{
 			const response = await fetch(`${host}/api/auth/login`, {
@@ -23,8 +26,12 @@ const Login = () => {
 				body: JSON.stringify(credentials)
 			});
 
+            setProgress(50);
+            
 			const json = await response.json();
-
+            
+            setProgress(90);
+            
 			if(json.success)
 			{
 				alertSetter({ message: json.message, type: "warning"});
@@ -34,13 +41,17 @@ const Login = () => {
 			}
 			else
 			{
-				alertSetter({ message: json.message, type: "danger"});
+                alertSetter({ message: json.message, type: "danger"});
 			}
 		}
 		catch(error)
 		{
 			alertSetter({ message: error, type: "danger"});
 		}
+        finally
+        {
+            setProgress(100);
+        }
     };
 
     const onChange = (e) => {
@@ -55,7 +66,7 @@ const Login = () => {
                     <input type="email" id="email" name='email' onChange={onChange} required placeholder='Email' />
                     <input type="password" id="password" name='password' onChange={onChange} autoComplete='on' required placeholder='Password' />
                 </div>
-                <button disabled={ credentials.email.trim() === "" || credentials.password.trim() === "" } type="submit">Login</button>
+                <button disabled={ credentials.email.trim() === "" || credentials.password.trim().length < 8 } type="submit">Login</button>
             </form>
             <Link to="/signup">I don't have an account. Register?</Link>
         </div>

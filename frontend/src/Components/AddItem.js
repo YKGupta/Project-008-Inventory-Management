@@ -1,21 +1,26 @@
 import React, { useContext, useRef, useState } from 'react'
 import ItemsContext from '../Context/ItemsContext';
+import ProgressContext from '../Context/ProgressContext';
 
 const AddItem = () => {
 
     const closeRef = useRef(null);
     const [ item, setItem ] = useState({ name: "", qty: "", category: "", imageURL: "" });
     const { addItem } = useContext(ItemsContext);
+    const { setProgress } = useContext(ProgressContext);
 
     const onChange = (e) => {
         setItem({ ...item, [e.target.name]: e.target.value });
     };
 
     const handleAddClick = () => {
+        setProgress(30);
         addItem(item);
+        setProgress(95);
         const inputs = document.getElementsByTagName('input');
         for(let i = 0; i < inputs.length; i++)
-            inputs[i].value = "";
+        inputs[i].value = "";
+        setProgress(100);
         closeRef.current.click();
     };
 
