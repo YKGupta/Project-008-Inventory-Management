@@ -6,7 +6,8 @@ const Item = require('../Models/Item');
 
 const validators = [
     body('name', "Name cannot be empty").isLength({ min: 1 }),
-    body('qty', "Quantity must be numeric").isNumeric()
+    body('qty', "Quantity must be numeric").isNumeric(),
+    body('price', "Price must be numeric").isNumeric()
 ];
 
 // Route 1 : Add new item using POST : /api/inventory/add
@@ -25,7 +26,7 @@ router.post('/add', authenticate, checkAdmin, [ ...validators ], async (req, res
 
     try
     {
-        const { name, qty, category, imageURL } = req.body;
+        const { name, qty, price, unit, category, imageURL } = req.body;
 
         // Check if item already exists
         const oldItem = await Item.findOne({ name });
@@ -40,6 +41,8 @@ router.post('/add', authenticate, checkAdmin, [ ...validators ], async (req, res
         const item = new Item({
             name,
             qty,
+            price,
+            unit,
             category,
             imageURL
         });
@@ -96,7 +99,7 @@ router.put('/update/:id', authenticate, checkAdmin, [ ...validators ], async (re
 
     try
     {
-        const { name, qty, category, imageURL } = req.body;
+        const { name, qty, price, unit, category, imageURL } = req.body;
         const item = await Item.findById(req.params.id);
 
         if(!item)
@@ -112,6 +115,8 @@ router.put('/update/:id', authenticate, checkAdmin, [ ...validators ], async (re
         if(qty) newItem.qty = qty;
         if(category) newItem.category = category;
         if(imageURL) newItem.imageURL = imageURL;
+        if(price) newItem.price = price;
+        if(unit) newItem.unit = unit;
 
         const updatedItem = await Item.findByIdAndUpdate(req.params.id, { $set: newItem }, { new: true });
 

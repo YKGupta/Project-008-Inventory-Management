@@ -25,6 +25,14 @@ const UpdateItem = ({ closeRef, update, updatedItem, setUpdatedItem }) => {
                                 <input type="number" className="form-control" id="qty" name="qty" onChange={onChange} value={updatedItem.qty} />
                             </div>
                             <div className="mb-3">
+                                <label htmlFor="price" className="form-label">Price</label>
+                                <input type="number" className="form-control" id="price" name="price" onChange={onChange} value={updatedItem.price} />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="unit" className="form-label">Unit</label>
+                                <input type="text" className="form-control" id="unit" name="unit" onChange={onChange} value={updatedItem.unit} />
+                            </div>
+                            <div className="mb-3">
                                 <label htmlFor="category" className="form-label">Category</label>
                                 <input type="text" className="form-control" id="category" name="category" onChange={onChange} value={updatedItem.category} />
                             </div>
@@ -36,7 +44,7 @@ const UpdateItem = ({ closeRef, update, updatedItem, setUpdatedItem }) => {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeRef}>Close</button>
-                        <button disabled={updatedItem.name.toString().trim() === "" || updatedItem.qty.toString().trim() === "" || updatedItem.category.toString().trim() === ""} type="button" className="btn btn-primary" onClick={update}>Update</button>
+                        <button disabled={updatedItem.name.toString().trim() === "" || updatedItem.qty.toString().trim() === "" || updatedItem.category.toString().trim() === "" || updatedItem.unit.toString().trim() === "" } type="button" className="btn btn-primary" onClick={update}>Update</button>
                     </div>
                 </div>
             </div>

@@ -37,12 +37,14 @@ const Item = ({ item, setUpdateModal }) => {
                 {
                     localStorage.getItem('admin') === 'true' ? 
                     <>
-                        <p className="card-text">Quantity: {item.qty}</p>
+                        <p className="card-text my-2">Price: {item.price}/{item.unit}</p>
+                        <p className="card-text my-2 mb-2">Quantity: {item.qty}</p>
                         <i className="fa-solid fa-trash" onClick={handleDeleteClick}></i>
                         <i className="fa-solid fa-pen-to-square mx-4" data-bs-toggle="modal" data-bs-target="#updateItemModal" onClick={handleUpdateClick}></i>
                     </>
                     :
                     <>
+                        <p className="card-text my-2">Price: {item.price}/{item.unit}</p>
                         <div className="container d-flex align-items-center justify-content-center">
                             {
                                 frequency === 0 &&

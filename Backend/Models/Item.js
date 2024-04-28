@@ -9,6 +9,14 @@ const itemSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    price: {
+        type: Number,
+        required: true
+    },
+    unit: {
+        type: String,
+        required: true
+    },
     category: {
         type: String,
         default: "General"

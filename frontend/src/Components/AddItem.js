@@ -5,7 +5,7 @@ import ProgressContext from '../Context/ProgressContext';
 const AddItem = () => {
 
     const closeRef = useRef(null);
-    const [ item, setItem ] = useState({ name: "", qty: "", category: "", imageURL: "" });
+    const [ item, setItem ] = useState({ name: "", qty: "", price: "", unit: "", category: "", imageURL: "" });
     const { addItem } = useContext(ItemsContext);
     const { setProgress } = useContext(ProgressContext);
 
@@ -17,9 +17,11 @@ const AddItem = () => {
         setProgress(30);
         addItem(item);
         setProgress(95);
+
         const inputs = document.getElementsByTagName('input');
         for(let i = 0; i < inputs.length; i++)
-        inputs[i].value = "";
+            inputs[i].value = "";
+
         setProgress(100);
         closeRef.current.click();
     };
@@ -43,6 +45,14 @@ const AddItem = () => {
                                 <input type="number" className="form-control" id="qty" name="qty" onChange={ onChange } />
                             </div>
                             <div className="mb-3">
+                                <label htmlFor="price" className="form-label">Price</label>
+                                <input type="number" className="form-control" id="price" name="price" onChange={ onChange } />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="unit" className="form-label">Unit</label>
+                                <input type="text" className="form-control" id="unit" name="unit" onChange={ onChange } />
+                            </div>
+                            <div className="mb-3">
                                 <label htmlFor="category" className="form-label">Category</label>
                                 <input type="text" className="form-control" id="category" name="category" onChange={ onChange } />
                             </div>
@@ -55,7 +65,7 @@ const AddItem = () => {
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeRef}>Close</button>
                         <button disabled={ item.name.trim() === "" || item.qty.trim() === 
-                    "" || item.category.trim() === "" || item.imageURL.trim() === "" } type="button" className="btn btn-primary" onClick={ handleAddClick }>Add</button>
+                    "" || item.category.trim() === "" || item.imageURL.trim() === "" || item.unit.trim() === "" } type="button" className="btn btn-primary" onClick={ handleAddClick }>Add</button>
                     </div>
                 </div>
             </div>

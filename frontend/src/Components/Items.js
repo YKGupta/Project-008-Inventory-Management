@@ -10,7 +10,7 @@ import DashboardInfo from './DashboardInfo';
 const Items = () => {
 
     const { items, getAllItems } = useContext(ItemsContext);
-    const [updatedItem, setUpdatedItem] = useState({ _id: "", name: "", qty: "", imageURL: "" });
+    const [updatedItem, setUpdatedItem] = useState({ _id: "", name: "", price: "", unit:"", qty: "", imageURL: "" });
     const { updateItem } = useContext(ItemsContext);
     const closeRef = useRef(null);
     const navigate = useNavigate();

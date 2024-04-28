@@ -7,6 +7,15 @@ const Cart = () => {
 
     const { cartItems } = useContext(CartContext);
 
+    const totalCost = (() => {
+        let s = 0;
+        for(let i = 0; i < cartItems.length; i++)
+        {
+            s += cartItems[i].item.price * cartItems[i].frequency;
+        }
+        return s;
+    })();
+
     return (
         <div className="cart container d-flex align-items-start justify-content-between my-4">
             <div className="container col-8" id='cart-left'>
@@ -21,16 +30,19 @@ const Cart = () => {
                                 <>
                                     <div className="row m-auto my-3 col-12 d-flex align-items-center justify-content-start">
                                         <img className='col-2' src={x.item.imageURL} alt="img" />
-                                        <div className='col-6'>
-                                            <p>{x.item.category}</p>
+                                        <div className='col-4'>
+                                            <p style={{fontSize: '11px'}}>{x.item.category}</p>
                                             <p>{x.item.name}</p>
                                         </div>
                                         <div className='col-2'>
-                                            <p className='text-center'>₹10</p>
+                                            <p className='text-center'>&#10005;&nbsp;{x.frequency} {x.item.unit}</p>
                                         </div>
-                                        <div className='col-2 text-center'>
+                                        <div className='col-4'>
+                                            <p className='text-center'>₹{x.item.price}/{x.item.unit}</p>
+                                        </div>
+                                        {/* <div className='col-2 text-center'>
                                             <button type="button" class="btn-close" aria-label="Close"></button>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     {
                                         i !== cartItems.length-1 && <div className="line-b"></div>
@@ -47,9 +59,9 @@ const Cart = () => {
                 <div className="line-b2"></div>
                 <div className="container my-4 d-flex align-items-center justify-content-between">
                     <p className="text-uppercase">Items { cartItems.length }</p>
-                    <p>₹20</p>
+                    <p>₹{totalCost}</p>
                 </div>
-                <button type="button" className="btn">Checkout &rarr;</button>
+                {/* <button type="button" className="btn">Checkout &rarr;</button> */}
             </div>
         </div>
     )

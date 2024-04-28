@@ -49,7 +49,7 @@ const ItemsProvider = (props) => {
 		}
 	}
 
-	const addItem = async ({ name, qty, category, imageURL }) => {
+	const addItem = async ({ name, qty, price, unit, category, imageURL }) => {
 
 		setProgress(10);
 
@@ -62,7 +62,7 @@ const ItemsProvider = (props) => {
 					"Auth-Token":localStorage.getItem('token')
 				},
 				body: JSON.stringify({
-					name, qty, category, imageURL
+					name, qty, price, unit, category, imageURL
 				})
 			});
 
@@ -139,7 +139,7 @@ const ItemsProvider = (props) => {
 
 	}
 
-	const updateItem = async ({ _id, name, qty, category, imageURL }) => {
+	const updateItem = async ({ _id, name, price, unit, qty, category, imageURL }) => {
 
 		setProgress(10);
 
@@ -152,7 +152,7 @@ const ItemsProvider = (props) => {
 					"Auth-Token":localStorage.getItem('token')
 				},
 				body: JSON.stringify({
-					name, qty, category, imageURL
+					name, price, unit, qty, category, imageURL
 				})
 			});
 
@@ -173,6 +173,8 @@ const ItemsProvider = (props) => {
 					if(newItems[i]._id === _id)
 					{
 						newItems[i].name = name;
+						newItems[i].price = price;
+						newItems[i].unit = unit;
 						newItems[i].qty = qty;
 						newItems[i].category = category;
 						newItems[i].imageURL = imageURL;
