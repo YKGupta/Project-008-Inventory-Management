@@ -21,7 +21,7 @@ const validate = (req, res, next) => {
     }
     catch(error)
     {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Internal Server Error",
             success: false,
             error

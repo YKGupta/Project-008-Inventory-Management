@@ -11,7 +11,7 @@ const validators = [
 ];
 
 // Route 1 : Add new item using POST : /api/inventory/add
-// Required authentication
+// Required authentication + admin
 
 router.post('/add', authenticate, checkAdmin, [ ...validators ], async (req, res) => {
 
@@ -76,7 +76,7 @@ router.get('/getall', authenticate, async (req, res) => {
         const items = await Item.find({});
 
         res.status(200).json({
-            message: "Item created successfully!",
+            message: "Items retrieved successfully!",
             items,
             success: true
         });
@@ -93,7 +93,7 @@ router.get('/getall', authenticate, async (req, res) => {
 });
 
 // Route 3 : Update an item using PUT : /api/inventory/update
-// Required authentication
+// Required authentication + admin
 
 router.put('/update/:id', authenticate, checkAdmin, [ ...validators ], async (req, res) => {
 
@@ -138,7 +138,7 @@ router.put('/update/:id', authenticate, checkAdmin, [ ...validators ], async (re
 });
 
 // Route 4 : Delete an item using DELETE : /api/inventory/delete
-// Required authentication
+// Required authentication + admin
 
 router.delete('/delete/:id', authenticate, checkAdmin, async (req, res) => {
 

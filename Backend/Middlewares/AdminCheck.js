@@ -7,7 +7,7 @@ const validateAdmin = async (req, res, next) => {
         const user = await User.findById(req.id);
         if(!user.admin)
         {
-            res.status(401).json({
+            return res.status(401).json({
                 message: "Not Admin",
                 success: false
             });
@@ -15,7 +15,7 @@ const validateAdmin = async (req, res, next) => {
     }
     catch(error)
     {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Internal Server Error",
             success: false,
             error
