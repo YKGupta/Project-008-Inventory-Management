@@ -17,7 +17,6 @@ const Navbar = () => {
     };
 
     const handleCartClick = () => {
-        console.log("Going to the cart...");
         navigate('/cart');
     };
 

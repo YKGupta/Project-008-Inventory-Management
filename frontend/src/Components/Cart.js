@@ -5,16 +5,11 @@ import CartContext from '../Context/CartContext';
 
 const Cart = () => {
 
-    const { cartItems } = useContext(CartContext);
+    const { cartItems, totalCost, placeOrder } = useContext(CartContext);
 
-    const totalCost = (() => {
-        let s = 0;
-        for(let i = 0; i < cartItems.length; i++)
-        {
-            s += cartItems[i].item.price * cartItems[i].frequency;
-        }
-        return s;
-    })();
+    const handleOrderClick = () => {
+        placeOrder();
+    };
 
     return (
         <div className="cart container d-flex align-items-start justify-content-between my-4">
@@ -27,7 +22,7 @@ const Cart = () => {
                     {
                         cartItems.map((x, i) => {
                             return (
-                                <>
+                                <div key={x.item._id}>
                                     <div className="row m-auto my-3 col-12 d-flex align-items-center justify-content-start">
                                         <img className='col-2' src={x.item.imageURL} alt="img" />
                                         <div className='col-4'>
@@ -47,7 +42,7 @@ const Cart = () => {
                                     {
                                         i !== cartItems.length-1 && <div className="line-b"></div>
                                     }
-                                </>
+                                </div>
                             );
                         })
                     }
@@ -61,7 +56,7 @@ const Cart = () => {
                     <p className="text-uppercase">Items { cartItems.length }</p>
                     <p>₹{totalCost}</p>
                 </div>
-                {/* <button type="button" className="btn">Checkout &rarr;</button> */}
+                <button type="button" className="btn" onClick={handleOrderClick}>Place Your Order &rarr;</button>
             </div>
         </div>
     )
