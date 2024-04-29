@@ -15,6 +15,7 @@ import { useContext } from 'react';
 import ProgressContext from './Context/ProgressContext';
 import CartProvider from './Context/CartProvider';
 import Cart from './Components/Cart';
+import Orders from './Components/Orders';
 
 function App() {
 
@@ -22,8 +23,8 @@ function App() {
 
 	return (
 		<Router>
-			<CartProvider>
-				<ItemsProvider>
+			<ItemsProvider>
+				<CartProvider>
 					<LoadingBar
 						color='#2D3436'
 						progress={progress}
@@ -36,9 +37,10 @@ function App() {
 						<Route path="/login" element={<Login />} />
 						<Route path="/signup" element={<Signup />} />
 						<Route path="/cart" element={<Cart />} />
+						<Route path="/orders" element={<Orders />} />
 					</Routes>
-				</ItemsProvider>
-			</CartProvider>
+				</CartProvider>
+			</ItemsProvider>
 		</Router>
 	);
 }

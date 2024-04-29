@@ -10,48 +10,37 @@ const CartProvider = (props) => {
     const [orders, setOrders] = useState([]);
     const navigate = useNavigate();
 
-	const host = "http://localhost:5000";
-	const { alertSetter } = useContext(AlertContext);
-	const { setProgress } = useContext(ProgressContext);
+    const host = "http://localhost:5000";
+    const { alertSetter } = useContext(AlertContext);
+    const { setProgress } = useContext(ProgressContext);
 
-    const placeOrder = async () => {
+    const getAllOrders = async () => {
 
-        setProgress(10);
-
+		setProgress(10);		
+		
 		try
 		{
-			const response = await fetch(`${host}/api/order/add`, {
-				method: "POST",
+			const response = await fetch(`${host}/api/order/getall${localStorage.getItem('admin') === 'false' ? 'user' : ''}`, {
+				method: "GET",
 				headers: {
-					"Content-Type":"application/json",
-					"Auth-Token":localStorage.getItem('token')
-				},
-				body: JSON.stringify({
-                    items: cartItems,
-                    totalPrice: totalCost
-				})
+					"Auth-Token": localStorage.getItem('token')
+				}
 			});
 
 			setProgress(50);
-
+			
 			const json = await response.json();
-
+			
 			setProgress(90);
 
 			if(json.success)
 			{
-				// Update frontend
-				alertSetter({ message: json.message, type: "warning"});
-				const newOrders = orders.concat(json.item);
-				setOrders(newOrders);
-                setCartItems([]);
-                navigate('/');
+				setOrders(json.orders);
 			}
 			else
 			{
 				alertSetter({ message: json.message, type: "danger"});
 			}
-
 		}
 		catch(error)
 		{
@@ -61,13 +50,56 @@ const CartProvider = (props) => {
 		{
 			setProgress(100);		
 		}
+	}
+
+    const placeOrder = async () => {
+
+        setProgress(10);
+
+        try {
+            const response = await fetch(`${host}/api/order/add`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Auth-Token": localStorage.getItem('token')
+                },
+                body: JSON.stringify({
+                    items: cartItems,
+                    totalPrice: totalCost
+                })
+            });
+
+            setProgress(50);
+
+            const json = await response.json();
+
+            setProgress(90);
+
+            if (json.success) {
+                // Update frontend
+                alertSetter({ message: json.message, type: "warning" });
+                // const newOrders = orders.concat(json.item);
+                // setOrders(newOrders);
+                setCartItems([]);
+                navigate('/');
+            }
+            else {
+                alertSetter({ message: json.message, type: "danger" });
+            }
+
+        }
+        catch (error) {
+            alertSetter({ message: error, type: "danger" });
+        }
+        finally {
+            setProgress(100);
+        }
 
     };
 
     const totalCost = (() => {
         let s = 0;
-        for(let i = 0; i < cartItems.length; i++)
-        {
+        for (let i = 0; i < cartItems.length; i++) {
             s += cartItems[i].item.price * cartItems[i].frequency;
         }
         return s;
@@ -76,13 +108,12 @@ const CartProvider = (props) => {
     const updateCartItems = ({ item, frequency }) => {
 
         const newCartItems = [...cartItems];
-        
+
         const index = newCartItems.findIndex((value) => value.item._id === item._id);
-        
+
         let cartItem = index !== -1 ? newCartItems[index] : null;
 
-        if(index === -1 && frequency > 0)
-        {
+        if (index === -1 && frequency > 0) {
             cartItem = {
                 item,
                 frequency
@@ -91,18 +122,16 @@ const CartProvider = (props) => {
             newCartItems.push(cartItem);
         }
 
-        if(!cartItem)
+        if (!cartItem)
             return;
-        
-        if(frequency === 0)
-        {
+
+        if (frequency === 0) {
             // Remove item
             newCartItems.splice(index, 1);
         }
-        else
-        {
+        else {
             // Update item
-            cartItem.frequency  = frequency;
+            cartItem.frequency = frequency;
         }
 
         setCartItems(newCartItems);
@@ -114,7 +143,7 @@ const CartProvider = (props) => {
     };
 
     return (
-        <CartContext.Provider value={{ cartItems, setCartItems, updateCartItems, fetchCartItem, placeOrder, totalCost }}>
+        <CartContext.Provider value={{ cartItems, setCartItems, updateCartItems, fetchCartItem, placeOrder, totalCost, orders, setOrders, getAllOrders }}>
             {props.children}
         </CartContext.Provider>
     );

@@ -59,10 +59,36 @@ router.post('/add', authenticate, [ ...validators ], async (req, res) => {
 
 });
 
-// Route 2 : Get all orders of a user using GET : /api/order/getall
+// Route 2 : Get all orders using GET : /api/order/getall
+// Required authentication + admin
+
+router.get('/getall', authenticate, checkAdmin, async (req, res) => {
+
+    try
+    {
+        const orders = await Order.find({});
+
+        res.status(200).json({
+            message: "Orders retrieved successfully!",
+            orders,
+            success: true
+        });
+    } 
+    catch(error)
+    {
+        res.status(500).json({
+            message: "Internal Server Error",
+            error,
+            success: false
+        });
+    }
+
+});
+
+// Route 3 : Get all orders of a user using GET : /api/order/getall
 // Required authentication
 
-router.get('/getall', authenticate, async (req, res) => {
+router.get('/getalluser', authenticate, async (req, res) => {
 
     try
     {
@@ -85,7 +111,7 @@ router.get('/getall', authenticate, async (req, res) => {
 
 });
 
-// Route 3 : Update an order using PUT : /api/order/update
+// Route 4 : Update an order using PUT : /api/order/update
 // Required authentication + admin
 
 router.put('/update/:id', authenticate, checkAdmin, [ ...validators ], async (req, res) => {
@@ -125,7 +151,7 @@ router.put('/update/:id', authenticate, checkAdmin, [ ...validators ], async (re
 
 });
 
-// Route 4 : Delete an order using DELETE : /api/order/delete
+// Route 5 : Delete an order using DELETE : /api/order/delete
 // Required authentication + admin
 
 router.delete('/delete/:id', authenticate, checkAdmin, async (req, res) => {

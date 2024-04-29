@@ -1,0 +1,23 @@
+.orders > .container{
+    border-radius: 10px;
+    padding: 20px;
+    overflow: hidden;
+    border: 2px solid gray;
+    background: transparent;
+    backdrop-filter: blur(10px);
+}
+
+.orders .line-b{
+    width: 80%;
+    margin: 20px auto;
+    height: 1px;
+    background-color: gray;
+}
+
+.orders .btn{
+    padding: 8px 12px;
+    background-color: #2D3436;
+    color: #FFCEA6;
+    border: none;
+    border-radius: 7px;
+}

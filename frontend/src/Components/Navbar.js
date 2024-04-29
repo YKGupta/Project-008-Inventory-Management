@@ -32,9 +32,9 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link className={`link ${location.pathname === '/' ? 'highlight' : ''}`} aria-current="page" to="/">Home</Link>
                         </li>
-                        {/* <li className="nav-item">
-                            <Link className={`link ${location.pathname === '/x' ? 'highlight' : ''}`} aria-current="page" to="/">Coming Soon</Link>
-                        </li> */}
+                        <li className="nav-item">
+                            <Link className={`link ${location.pathname === '/orders' ? 'highlight' : ''}`} aria-current="page" to="/orders">Orders</Link>
+                        </li>
                     </ul>
                 </div>
                 <div className='d-flex align-items-center justify-content-center'>
