@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 import AlertContext from '../Context/AlertContext';
 import ProgressContext from '../Context/ProgressContext';
+import UserContext from '../Context/UserContext';
 
 const Login = () => {
 
@@ -10,6 +11,7 @@ const Login = () => {
     const navigate = useNavigate();
     const { alertSetter } = useContext(AlertContext);
     const { setProgress } = useContext(ProgressContext);
+    const { setUser } = useContext(UserContext);
 
 	const host = "http://localhost:5000";
 
@@ -35,6 +37,8 @@ const Login = () => {
 			if(json.success)
 			{
 				alertSetter({ message: json.message, type: "warning"});
+                setUser(json.userDetails);
+                localStorage.setItem('name', json.userDetails.name);
                 localStorage.setItem('token', json.token);
                 localStorage.setItem('admin', json.isAdmin.toString());
                 navigate('/');

@@ -21,7 +21,7 @@ const Orders = () => {
     return (
         <div className="container my-4 orders">
             <div className="container-fluid d-flex align-items-center justify-content-between">
-                <h2>Your Orders</h2>
+                <h2>{localStorage.getItem('admin') === 'true' ? 'All' : 'Your'} Orders</h2>
                 <p className='text-secondary'>{orders.length}</p>
             </div>
             <div className="container my-4">

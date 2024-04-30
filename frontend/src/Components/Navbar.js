@@ -12,6 +12,7 @@ const Navbar = () => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('admin');
+        localStorage.removeItem('name');
         setCartItems([]);
         navigate('/login');
     };
@@ -46,6 +47,7 @@ const Navbar = () => {
                             </>
                             :
                             <>
+                                <p className='mx-2'>Hello, <b>{localStorage.getItem('name')}</b>!</p>
                                 {
                                     cartItems.length > 0 && 
                                     <div className='mx-4 position-relative' onClick={handleCartClick}>

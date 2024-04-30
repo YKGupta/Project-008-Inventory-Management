@@ -16,6 +16,7 @@ import ProgressContext from './Context/ProgressContext';
 import CartProvider from './Context/CartProvider';
 import Cart from './Components/Cart';
 import Orders from './Components/Orders';
+import UserProvider from './Context/UserProvider';
 
 function App() {
 
@@ -23,24 +24,26 @@ function App() {
 
 	return (
 		<Router>
-			<ItemsProvider>
-				<CartProvider>
-					<LoadingBar
-						color='#2D3436'
-						progress={progress}
-						onLoaderFinished={() => setProgress(0)}
-					/>
-					<Alert />
-					<Navbar />
-					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/login" element={<Login />} />
-						<Route path="/signup" element={<Signup />} />
-						<Route path="/cart" element={<Cart />} />
-						<Route path="/orders" element={<Orders />} />
-					</Routes>
-				</CartProvider>
-			</ItemsProvider>
+			<UserProvider>
+				<ItemsProvider>
+					<CartProvider>
+						<LoadingBar
+							color='#2D3436'
+							progress={progress}
+							onLoaderFinished={() => setProgress(0)}
+						/>
+						<Alert />
+						<Navbar />
+						<Routes>
+							<Route path="/" element={<Home />} />
+							<Route path="/login" element={<Login />} />
+							<Route path="/signup" element={<Signup />} />
+							<Route path="/cart" element={<Cart />} />
+							<Route path="/orders" element={<Orders />} />
+						</Routes>
+					</CartProvider>
+				</ItemsProvider>
+			</UserProvider>
 		</Router>
 	);
 }

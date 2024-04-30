@@ -78,10 +78,8 @@ const CartProvider = (props) => {
             if (json.success) {
                 // Update frontend
                 alertSetter({ message: json.message, type: "warning" });
-                // const newOrders = orders.concat(json.item);
-                // setOrders(newOrders);
                 setCartItems([]);
-                navigate('/');
+                navigate('/orders');
             }
             else {
                 alertSetter({ message: json.message, type: "danger" });

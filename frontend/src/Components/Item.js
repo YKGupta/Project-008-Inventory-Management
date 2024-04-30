@@ -47,10 +47,17 @@ const Item = ({ item, setUpdateModal }) => {
                         <p className="card-text my-2">Price: {item.price}/{item.unit}</p>
                         <div className="container d-flex align-items-center justify-content-center">
                             {
-                                frequency === 0 &&
+                                item.qty === 0 ? 
+                                <p className="mx-2 mb-0 text-secondary" style={{fontSize: '12.5px'}}>Not in stock</p>
+                                : frequency === 0 &&
                                 <p className="mx-2 mb-0">Add to cart</p>
                             }
-                            <i className="fa-solid fa-plus" onClick={() => changeItemFrequency(1)}></i>
+                            {
+                                frequency < item.qty ?
+                                <i className="fa-solid fa-plus" onClick={() => changeItemFrequency(1)}></i> :
+                                item.qty > 0 &&
+                                <p className="mx-2 mb-0" style={{fontSize: '11.5px'}}>No more available</p>
+                            }
                             {
                                 frequency > 0 &&
                                 <>
