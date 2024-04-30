@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const validate = require('../Middlewares/AuthenthicateUser');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -51,10 +52,18 @@ router.post('/adduser', [...validators], async (req, res) => {
             id: user._id
         }
 
-        const token = jwt.sign(jwtPayload, SECRET_KEY);  
+        const token = jwt.sign(jwtPayload, SECRET_KEY);
+
+        const userDetails = {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            admin: user.admin
+        };
     
         res.status(200).json({
             message: "User created successfully",
+            userDetails,
             token,
             success: true
         });
@@ -112,11 +121,19 @@ router.post('/login', [ validators[1], validators[2] ], async (req, res) => {
             id: user._id
         }
 
-        const token = jwt.sign(jwtPayload, SECRET_KEY);  
+        const token = jwt.sign(jwtPayload, SECRET_KEY);
+
+        const userDetails = {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            admin: user.admin
+        };
     
         res.status(200).json({
             message: "Logged in successfully",
             token,
+            userDetails,
             isAdmin: user.admin,
             success: true
         });

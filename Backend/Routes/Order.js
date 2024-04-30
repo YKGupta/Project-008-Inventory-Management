@@ -3,6 +3,7 @@ const { body, validationResult } = require('express-validator');
 const authenticate = require('../Middlewares/AuthenthicateUser');
 const checkAdmin = require('../Middlewares/AdminCheck');
 const Order = require('../Models/Order');
+const Item = require('../Models/Item');
 
 const validators = [
     body('totalPrice', "Price must be numeric").isNumeric()
@@ -41,6 +42,17 @@ router.post('/add', authenticate, [ ...validators ], async (req, res) => {
         const order = new Order(data);
 
         await order.save();
+
+        // Update items' quantites now
+        const items = req.body.items;
+        for(let i = 0; i < items.length; i++)
+        {
+            const item = await Item.findById(items[i].item);
+            const updatedItem = {
+                qty: item.qty - items[i].frequency
+            };
+            await Item.findByIdAndUpdate(items[i].item, { $set: updatedItem }, { new: true });
+        }
 
         res.status(200).json({
             message: "Order created successfully!",
