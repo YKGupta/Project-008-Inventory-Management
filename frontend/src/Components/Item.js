@@ -31,7 +31,7 @@ const Item = ({ item, setUpdateModal }) => {
                 {item.category}
                 <span className="visually-hidden">category</span>
             </span>
-            <img src={item.imageURL} className="card-img-top my-3 rounded" alt=""></img>
+            <img src={item.imageURL} className="card-img-top my-3 rounded" style={{ width: "100%", aspectRatio: "6 / 4", objectFit: "cover" }} alt=""></img>
             <div className="card-body">
                 <h5 className="card-title">{item.name}</h5>
                 {
@@ -48,7 +48,7 @@ const Item = ({ item, setUpdateModal }) => {
                         <div className="container d-flex align-items-center justify-content-center">
                             {
                                 item.qty === 0 ? 
-                                <p className="mx-2 mb-0 text-secondary" style={{fontSize: '12.5px'}}>Not in stock</p>
+                                <p className="mx-2 mb-0 text-secondary">Not in stock</p>
                                 : frequency === 0 &&
                                 <p className="mx-2 mb-0">Add to cart</p>
                             }
