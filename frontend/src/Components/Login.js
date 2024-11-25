@@ -13,14 +13,12 @@ const Login = () => {
     const { setProgress } = useContext(ProgressContext);
     const { setUser } = useContext(UserContext);
 
-	const host = "http://localhost:5000";
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setProgress(30);
         try
 		{
-			const response = await fetch(`${host}/api/auth/login`, {
+			const response = await fetch(`${process.env.REACT_APP_HOST}/api/auth/login`, {
 				method: "POST",
 				headers: {
 					"Content-Type":"application/json"

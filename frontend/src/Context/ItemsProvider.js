@@ -9,15 +9,13 @@ const ItemsProvider = (props) => {
 	const { alertSetter } = useContext(AlertContext);
 	const { setProgress } = useContext(ProgressContext);
 
-	const host = "http://localhost:5000";
-
 	const getAllItems = async () => {
 
-		setProgress(10);		
+		setProgress(10);
 		
 		try
 		{
-			const response = await fetch(`${host}/api/inventory/getall`, {
+			const response = await fetch(`${process.env.REACT_APP_HOST}/api/inventory/getall`, {
 				method: "GET",
 				headers: {
 					"Auth-Token": localStorage.getItem('token')
@@ -55,7 +53,7 @@ const ItemsProvider = (props) => {
 
 		try
 		{
-			const response = await fetch(`${host}/api/inventory/add`, {
+			const response = await fetch(`${process.env.REACT_APP_HOST}/api/inventory/add`, {
 				method: "POST",
 				headers: {
 					"Content-Type":"application/json",
@@ -102,7 +100,7 @@ const ItemsProvider = (props) => {
 
 		try
 		{
-			const response = await fetch(`${host}/api/inventory/delete/${_id}`, {
+			const response = await fetch(`${process.env.REACT_APP_HOST}/api/inventory/delete/${_id}`, {
 				method: "DELETE",
 				headers: {
 					"Auth-Token": localStorage.getItem('token')
@@ -145,7 +143,7 @@ const ItemsProvider = (props) => {
 
 		try
 		{
-			const response = await fetch(`${host}/api/inventory/update/${_id}`, {
+			const response = await fetch(`${process.env.REACT_APP_HOST}/api/inventory/update/${_id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type":"application/json",

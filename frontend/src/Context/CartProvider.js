@@ -11,7 +11,6 @@ const CartProvider = (props) => {
     const [orders, setOrders] = useState([]);
     const navigate = useNavigate();
 
-    const host = "http://localhost:5000";
     const { alertSetter } = useContext(AlertContext);
     const { setProgress } = useContext(ProgressContext);
 
@@ -20,7 +19,7 @@ const CartProvider = (props) => {
         setProgress(10);
 
         try {
-            const response = await fetch(`${host}/api/order/getall${localStorage.getItem('admin') === 'false' ? 'user' : ''}`, {
+            const response = await fetch(`${process.env.REACT_APP_HOST}/api/order/getall${localStorage.getItem('admin') === 'false' ? 'user' : ''}`, {
                 method: "GET",
                 headers: {
                     "Auth-Token": localStorage.getItem('token')
@@ -61,7 +60,7 @@ const CartProvider = (props) => {
                 return;
             }
 
-            const orderResponse = await fetch(`${host}/api/payment/create`, {
+            const orderResponse = await fetch(`${process.env.REACT_APP_HOST}/api/payment/create`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -90,7 +89,7 @@ const CartProvider = (props) => {
                         razorpayOrderId: response.razorpay_order_id,
                         razorpaySignature: response.razorpay_signature,
                     };
-                    const r = await fetch(`${host}/api/payment/verify`, {
+                    const r = await fetch(`${process.env.REACT_APP_HOST}/api/payment/verify`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -101,7 +100,7 @@ const CartProvider = (props) => {
                     const d = await r.json();
                     if(d.success)
                     {
-                        const response = await fetch(`${host}/api/order/add`, {
+                        const response = await fetch(`${process.env.REACT_APP_HOST}/api/order/add`, {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
